@@ -1,0 +1,22 @@
+## file location and name: # .github/workflows/techtrends=dockerhub.yml
+name: TechTrends - Package with Docker
+## Set the trigger policy.
+## In this case, the workflow is execute on a `push` event,
+## or when a new commit is pushed to the repository
+on:
+  - branch: main
+    action: [push]  ## VERIFY SYNTAX ***
+## Workflow steps list
+jobs:
+  check-python-version:
+    ## Configure the operating system the workflow should run on.
+    runs-on: ubuntu-latest
+    steps:
+      ## Checkout the existing code in the repository
+      - uses: actions/checkout@v2
+      ## Install python on the  Ubuntu based environment 
+      - uses: actions/setup-python@v2
+      ## Execute the `python --version` command
+      - run: python --version
+
+## TODO: Change above and finish.
