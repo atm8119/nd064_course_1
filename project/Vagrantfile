@@ -11,10 +11,28 @@ Vagrant.configure("2") do |config|
   # st the static IP for the vagrant box
   config.vm.network "private_network", ip: "192.168.56.4"
   
-  # consifure the parameters for VirtualBox provider
+  # configure the parameters for VirtualBox provider
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4096"
     vb.cpus = 4
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
+
+  # Folder Settings
+  # config.vm.synced_folder ".", "/project", create: true
+  
+  # Provision Settings
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo zypper -y update 
+    sudo zypper -y dist-upgrade
+    sudo zypper in -y git-core
+    git --version
+    sudo zypper install -y python3-pip
+    sudo pip install --upgrade pip
+    hash -r
+    pip --version; pip3 --version
+    cd project/techtrends
+    sudo pip3 install -r requirements.txt
+  SHELL
+
 end

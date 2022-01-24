@@ -30,6 +30,29 @@ def index():
     connection.close()
     return render_template('index.html', posts=posts)
 
+# Define the health-check route of the web application
+@app.route('/status')
+def healthcheck():
+    response = app.response_class(
+        response = json.dumps({'result':'OK - healthy'}),
+        status = 200,
+        mimetype = 'application/json'
+    )
+    return response
+
+# Define the metrics route of the web application.
+@app.route('/metrics')
+def metrics():
+    connection = get_db_connection()
+    nConnections = connection.execute('SELECT COUNT(dbid) FROM sys.sysprocesses WHERE dbid > 0')
+    nPosts = connection.execute('SELECT COUNT(*) FROM posts')
+    response = app.response_class(
+        response = json.dumps({'db_connection_count':nConnections,'post_count':nPosts}),
+        status = 200,
+        mimetype='application/json'
+    )
+    return response
+
 # Define how each individual article is rendered 
 # If the post ID is not found a 404 page is shown
 @app.route('/<int:post_id>')
