@@ -44,7 +44,7 @@ def healthcheck():
 @app.route('/metrics')
 def metrics():
     connection = get_db_connection()
-    nConnections = connection.execute('SELECT COUNT(dbid) FROM sys.sysprocesses WHERE dbid > 0')
+    nConnections = connection.execute('SELECT COUNT(session_id) FROM sys.dm_exec_sessions')
     nPosts = connection.execute('SELECT COUNT(*) FROM posts')
     response = app.response_class(
         response = json.dumps({'db_connection_count':nConnections,'post_count':nPosts}),

@@ -19,20 +19,31 @@ Vagrant.configure("2") do |config|
   end
 
   # Folder Settings
-  # config.vm.synced_folder ".", "/project", create: true
+  config.vm.synced_folder ".", "/vagrant"
   
   # Provision Settings
   config.vm.provision "shell", inline: <<-SHELL
-    sudo zypper -y update 
-    sudo zypper -y dist-upgrade
+    # Zypper upgrade 
+    sudo zypper --non-interactive update 
+    sudo zypper --non-interactive dist-upgrade
+    # Git install
     sudo zypper in -y git-core
     git --version
+    # VS Code Install
+    sudo zypper ar https://packages.microsoft.com/yumrepos/vscode vscode
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo zypper refresh
+    sudo zypper install -y code
+    # Container management tools
+    sudo zypper install -y docker
+    sudo curl -sfL https://get.k3s.io | sh -
+    # Python install
     sudo zypper install -y python3-pip
     sudo pip install --upgrade pip
     hash -r
     pip --version; pip3 --version
-    cd project/techtrends
-    sudo pip3 install -r requirements.txt
+    # cd nd064_course_1/project/techtrends
+    # sudo pip3 install -r requirements.txt
   SHELL
 
 end
