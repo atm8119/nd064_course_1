@@ -2,7 +2,7 @@ import sqlite3
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
-import logging
+import logging, sys
 
 nConnections = 0
 
@@ -104,5 +104,18 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
-   logging.basicConfig(level=logging.DEBUG, format='%(levelname)-3s: %(asctime)-3s :: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+   logger = logging.getLogger()
+   log_format = logging.Formatter('%(levelname)-3s: %(asctime)-3s :: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+   # Creation of handlers for stdout and stderr output.
+   # Note: Results in expected duplicate activity in terminal output.
+   stdout_handler = logging.StreamHandler(sys.stdout)
+   stderr_handler = logging.StreamHandler(sys.stderr)
+   stdout_handler.setLevel(logging.DEBUG)
+   stderr_handler.setLevel(logging.DEBUG)
+   logger.addHandler(stdout_handler)
+   logger.addHandler(stderr_handler)
+
+   logging.basicConfig(format = log_format, level=logging.DEBUG)
+
    app.run(host='0.0.0.0', port='3111')
