@@ -10,7 +10,7 @@ nConnections = 0
 # This function connects to database with the name `database.db`
 def get_db_connection():
     global nConnections 
-    nConnections += + 1
+    nConnections += 1
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
     return connection
@@ -49,9 +49,13 @@ def healthcheck():
 @app.route('/metrics')
 def metrics():
     connection = get_db_connection()
-    nPosts = connection.execute('SELECT COUNT(*) FROM posts')
+    cur = connection.cursor()
+    cur.execute('SELECT COUNT(*) FROM posts')
+    rowCount = cur.fetchone()[0]
+    connection.close()
+
     response = app.response_class(
-        response = json.dumps({'db_connection_count':nConnections,'post_count':nPosts}),
+        response = json.dumps({'db_connection_count':nConnections,'post_count':rowCount}),
         status = 200,
         mimetype='application/json'
     )
@@ -66,7 +70,8 @@ def post(post_id):
       app.logger.info('Attempt to access non-existing article. 404 Page returned.')
       return render_template('404.html'), 404
     else:
-      app.logger.info('Retrieving article \'' + post.title + '\'')
+      console.log(post)
+      #app.logger.info('Retrieving article \'' + post[title] + '\'')
       return render_template('post.html', post=post)
 
 # Define the About Us page
@@ -100,5 +105,5 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
-   logging.basicConfig(level=logging.DEBUG)
+   logging.basicConfig(level=logging.DEBUG, format='%(asctime)-3s :: %(levelname)-3s :: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
    app.run(host='0.0.0.0', port='3111')
