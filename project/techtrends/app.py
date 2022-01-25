@@ -70,8 +70,7 @@ def post(post_id):
       app.logger.info('Attempt to access non-existing article. 404 Page returned.')
       return render_template('404.html'), 404
     else:
-      console.log(post)
-      #app.logger.info('Retrieving article \'' + post[title] + '\'')
+      app.logger.info('Retrieving article \'' + post[2] + '\'')
       return render_template('post.html', post=post)
 
 # Define the About Us page
@@ -105,5 +104,5 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
-   logging.basicConfig(level=logging.DEBUG, format='%(asctime)-3s :: %(levelname)-3s :: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+   logging.basicConfig(level=logging.DEBUG, format='%(levelname)-3s: %(asctime)-3s :: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
    app.run(host='0.0.0.0', port='3111')
