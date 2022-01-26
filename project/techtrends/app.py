@@ -76,7 +76,6 @@ def post(post_id):
 # Define the About Us page
 @app.route('/about')
 def about():
-    
     app.logger.info('About Us page is being retrieved.')
     return render_template('about.html')
 
@@ -104,18 +103,17 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
-   logger = logging.getLogger()
-   log_format = logging.Formatter('%(levelname)-3s: %(asctime)-3s :: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-
+   log_format = '%(levelname)-3s: %(asctime)-3s :: %(message)s'
+   date_format='%m/%d/%Y %I:%M:%S %p'
+   logging.basicConfig(level=logging.DEBUG)
+   
    # Creation of handlers for stdout and stderr output.
-   # Note: Results in expected duplicate activity in terminal output.
    stdout_handler = logging.StreamHandler(sys.stdout)
    stderr_handler = logging.StreamHandler(sys.stderr)
-   stdout_handler.setLevel(logging.DEBUG)
-   stderr_handler.setLevel(logging.DEBUG)
-   logger.addHandler(stdout_handler)
-   logger.addHandler(stderr_handler)
-
-   logging.basicConfig(format = log_format, level=logging.DEBUG)
+   stdout_handler.setFormatter(logging.Formatter(fmt=log_format, datefmt = date_format))
+   stderr_handler.setFormatter(logging.Formatter(fmt=log_format, datefmt = date_format))
+   app.logger.addHandler(stdout_handler)
+   app.logger.addHandler(stderr_handler)
+   app.logger.propagate = False
 
    app.run(host='0.0.0.0', port='3111')
