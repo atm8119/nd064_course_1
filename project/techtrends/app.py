@@ -108,6 +108,7 @@ if __name__ == "__main__":
    logging.basicConfig(level=logging.DEBUG)
    
    # Creation of handlers for stdout and stderr output.
+   # Since both stdout and stderr print to console by default, duplicate log printing is expected.
    stdout_handler = logging.StreamHandler(sys.stdout)
    stderr_handler = logging.StreamHandler(sys.stderr)
    stdout_handler.setFormatter(logging.Formatter(fmt=log_format, datefmt = date_format))

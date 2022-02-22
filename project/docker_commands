@@ -1,11 +1,48 @@
 ## Docker commands used to build the application 
-docker build -f ./techtrends -t techtrends 
+docker build -f ./Dockerfile -t techtrends .
 
 ## Docker commands used to run the application
-docker run -d -p 7111:3111 techtrends
+docker run -d -p 7111:3111 --name techtrends-instance techtrends
 
 ## Docker commands used to get the application logs
-# TODO: insert the docker logs command
+docker logs techtrend-instance
 
 ## Logs from the container running the TechTrends application
-# TODO: paste logs from the Docker container 
+* Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://172.17.0.2:3111/ (Press CTRL+C to quit)
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:24:55] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:24:55] "GET /static/css/main.css HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:24:55] "GET /favicon.ico HTTP/1.1" 404 -
+INFO: 02/22/2022 05:25:22 AM :: Retrieving article '2020 CNCF Annual Report'
+INFO: 02/22/2022 05:25:22 AM :: Retrieving article '2020 CNCF Annual Report'
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:22] "GET /1 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:22] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:26] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:26] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO: 02/22/2022 05:25:27 AM :: Retrieving article 'KubeCon + CloudNativeCon 2021'
+INFO: 02/22/2022 05:25:27 AM :: Retrieving article 'KubeCon + CloudNativeCon 2021'
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:27] "GET /2 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:28] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:29] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:29] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:30] "GET /create HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:30] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO: 02/22/2022 05:25:48 AM :: Article 'New Post Test' created and saved.
+INFO: 02/22/2022 05:25:48 AM :: Article 'New Post Test' created and saved.
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:48] "POST /create HTTP/1.1" 302 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:48] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO: 02/22/2022 05:25:54 AM :: About Us page is being retrieved.
+INFO: 02/22/2022 05:25:54 AM :: About Us page is being retrieved.
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:54] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:25:54] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:26:00] "GET /metrics HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:26:06] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:31:34] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [22/Feb/2022 05:31:35] "GET /static/css/main.css HTTP/1.1" 304 -
