@@ -7,8 +7,8 @@ on:
   push:
     branches: 
       - 'main'
-    paths:
-      - 'techtrends/**'
+    # paths:
+    #   - 'techtrends/**'
 ## Workflow steps list
 jobs:
   check-python-version:
