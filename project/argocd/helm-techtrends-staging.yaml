@@ -12,7 +12,7 @@ spec:
       parameters:
         - name: values
           value: "values-staging.yaml"
-    repoURL: https://github.com/atm8119/nd064_course_1/tree/main/project
+    repoURL: https://github.com/atm8119/nd064_course_1/tree/main/project/helm
     targetRevision: 1.0.0
   destination:
     namespace: default
