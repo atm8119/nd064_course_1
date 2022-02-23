@@ -1,0 +1,24 @@
+namespace:
+  name: prod
+
+## overwrite service values in service.yaml
+service:
+  port: 7111
+
+## overwrite deployment values in deploy.yaml
+# define the image to execute with the Deployment 
+image:
+  pullPolicy: Always
+
+# set the number of replicas for an application 
+replicaCount: 5
+
+resources:
+  # resource allocations per pod. 'Mi' = Mebibytes. 'm' = miliCPUs.
+  requests:
+    memory: "128Mi"
+    cpu: "350m"
+  # resource consumption limits per pod. 'Mi' = Mebibytes. 'm' = miliCPUs.
+  limits:
+    memory: "256Mi"
+    cpu: "500m"

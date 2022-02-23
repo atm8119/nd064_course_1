@@ -1,0 +1,55 @@
+## Set the API endpoint used to create the Deployment resource.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: techtrends
+  name: techtrends
+  namespace: {{ .Values.namespace.name }}
+## Define the desired configuration for the Deployment resource.
+spec:
+  replicas: {{ .Values.replicaCount }}
+  ## Identify the pods managed by this Deployment using the following selectors.
+  selector:
+    matchLabels:
+      app: techtrends
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  ## Set the configuration for the pods.
+  template:
+    metadata:
+      labels:
+        app: techtrends
+    spec:
+      containers:
+      - image: {{ .Values.image.repository }} : {{ .Value.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: techtrends
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+          protocol: TCP
+        ## Define the rules for the liveness probes.
+        ## If the application is not responsive, then the pod will be restarted automatically. 
+        livenessProbe:
+           httpGet:
+             path: {{ .Values.livenessProbe.path }}
+             port: {{ .Values.containerPort }}
+        ## Define the rules for the readiness probes.
+        ## If the application is responsive, then traffic will be sent to this pod.
+        readinessProbe:
+           httpGet:
+             path: {{ .Values.readinessProbe.path }}
+             port: {{ .Values.containerPort }}
+        ## Set the resource requests and limits for an application.
+        resources:
+        ## Resource allocations per pod. 'Mi' = Mebibytes. 'm' = miliCPUs.
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+        ## Resource consumption limits per pod. 'Mi' = Mebibytes. 'm' = miliCPUs.
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
