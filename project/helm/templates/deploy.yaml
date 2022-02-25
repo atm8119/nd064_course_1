@@ -36,13 +36,13 @@ spec:
         livenessProbe:
            httpGet:
              path: {{ .Values.livenessProbe.path }}
-             port: {{ .Values.containerPort }}
+             port: {{ .Values.service.port }}
         ## Define the rules for the readiness probes.
         ## If the application is responsive, then traffic will be sent to this pod.
         readinessProbe:
            httpGet:
              path: {{ .Values.readinessProbe.path }}
-             port: {{ .Values.containerPort }}
+             port: {{ .Values.service.port }}
         ## Set the resource requests and limits for an application.
         resources:
         ## Resource allocations per pod. 'Mi' = Mebibytes. 'm' = miliCPUs.
