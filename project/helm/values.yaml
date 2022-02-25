@@ -31,11 +31,10 @@ resources:
 # set container port for deployment
 containerPort: 3111
 
-# set liveness probe path using containerPort
+# set liveness probe path (uses containerPort)
 livenessProbe:
   path: /healthz
-  port: 3111
-# set readiness probe path using containerPort
+
+# set readiness probe path (uses containerPort)
 readinessProbe:
   path: /healthz
-  port: 3111

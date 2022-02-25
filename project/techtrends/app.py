@@ -36,7 +36,7 @@ def index():
     return render_template('index.html', posts=posts)
 
 # Define the health-check route of the web application
-@app.route('/status')
+@app.route('/healthz')
 def healthcheck():
     response = app.response_class(
         response = json.dumps({'result':'OK - healthy'}),
