@@ -9,17 +9,11 @@ spec:
   source:
     chart: techtrends
     helm:
-      parameters:
-        - name: values
-          value: "values-staging.yaml"
+      valueFiles:
+      - "values-staging.yaml"
+    path: /project/helm/
     repoURL: https://github.com/atm8119/nd064_course_1/tree/main/project/helm
-    targetRevision: 1.0.0
+    targetRevision: HEAD
   destination:
     namespace: default
     server: https://kubernetes.default.svc
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
