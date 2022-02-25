@@ -11,7 +11,7 @@ service:
 ## set default deployment values in deploy.yaml
 # define the image to execute with the Deployment 
 image:
-  repository: techtrends 
+  repository: alonsotm/techtrends
   tag: latest
   pullPolicy: IfNotPresent
 
