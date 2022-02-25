@@ -34,6 +34,8 @@ containerPort: 3111
 # set liveness probe path using containerPort
 livenessProbe:
   path: /healthz
+  port: 3111
 # set readiness probe path using containerPort
 readinessProbe:
   path: /healthz
+  port: 3111
